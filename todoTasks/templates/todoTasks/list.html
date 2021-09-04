@@ -1,0 +1,85 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+  body {
+    background-color: #f9fac4;
+    font-family: fantasy;
+    background-image: url("https://images.unsplash.com/photo-1522199670076-2852f80289c3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1504&q=80");
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    text-align: center;
+    font-family: fantasy;
+    color: white
+  }
+
+  input::placeholder {
+    color: #d2d2d2;
+  }
+
+  .submit {
+    background-color: #bcf641;
+    border-radius: 3px;
+    font-size: 20px;
+  }
+
+  .center-column {
+    width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #00032b;
+    border-radius: 3px;
+    box-shadow: 6px 2px 30px 0px rgba(0, 0, 0, 0.75);
+    opacity: 0.9;
+  }
+
+  .item-row {
+    background-color: #013a8f;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 28px;
+    box-shadow: 0px -1px 10px -4px rgba(0, 0, 0, 0.75);
+  }
+
+  .btn-danger {
+    font-size: 12px;
+  }
+
+  .btn-info {
+    font-size: 12px;
+
+  }
+</style>
+<title>Todo</title>
+<div class="center-column">
+  <p>
+  <h1> <a href="/">Todo List</a></h1>
+  </p>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.title }}
+    <input class="submit" type="submit" value="Add Task">
+  </form>
+  {% for task in todoTasks %}
+  <div class="item-row">
+    <a class="btn btn-sm btn-info" href="{% url 'update_list' task.id %}">Edit</a>
+    <a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}">Delete</a>
+
+    {%if task.complete == True %}
+
+    <strike style="color:black"><b>{{task}}</b></strike>
+    {% else %}
+    <span>{{task}}</span>
+    {%endif%}
+  </div>
+  {% endfor %}
+</div>
